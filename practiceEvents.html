@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Practice with jQuery Events</title>
+    <script src="scripts/jquery-3.4.1.min.js"></script>
+    <script>
+      $(function () {
+        //16
+        $("#btn1").click(function () {
+          window.alert('Button "' + $(this).text() + '" has been clicked!');
+        });
+
+        //17
+        $("#btn2").bind("click", function () {
+          window.alert('Button "' + $(this).text() + '" has been clicked!');
+        });
+
+        //18
+        $("#btn3").on("click", function () {
+          window.alert('Button "' + $(this).text() + '" has been clicked!');
+        });
+
+        //19
+        $("body").on("click", ".btnMultiple", function () {
+          window.alert($(this).text() + '" has been clicked!');
+        });
+
+        // //20
+        // $("div")
+        //   .css("width", "400px")
+        //   .css("height", "400px")
+        //   .css("background-color", "silver");
+        // $("body").on(
+        //   {
+        //     mouseenter: function () {
+        //       window.alert("The mouse enter the div");
+        //     },
+        //     mouseleave: function () {
+        //       window.alert("The mouse left the div");
+        //     },
+        //     click: function () {
+        //       window.alert("Div was clicked");
+        //     },
+        //   },
+        //   "div"
+        // );
+
+        //21
+        $("div")
+          .css("width", "400px")
+          .css("height", "400px")
+          .css("background-color", "lightblue");
+        $("body").on(
+          {
+            mouseenter: function () {
+              $("div > span").text("The mouse enter the div");
+            },
+            mouseleave: function () {
+              $("div > span").text("The mouse left the div");
+            },
+            click: function () {
+              $("div > span").text("Div was clicked");
+            },
+          },
+          "div"
+        );
+
+        //22
+        $("body").on("click", "a", function (event) {
+          event.preventDefault();
+          $(this).css("color", "red");
+          window.alert("Event triggered by: " + event.target.nodeName);
+        });
+
+        //23
+        $("#size")
+          .css("width", "400px")
+          .css("height", "40px")
+          .css("background-color", "lightgreen")
+          .text($(window).width() + "px by " + $(window).height() + "px");
+        $(window).resize(function () {
+          $("#size").text(
+            $(window).width() + "px by " + $(window).height() + "px"
+          );
+        });
+
+        //24
+        $("input").focus(function () {
+          $(this).css("background-color", "lightgray");
+        });
+        $("input").blur(function () {
+          $(this).css("background-color", "white");
+        });
+
+        //25
+        $("body").on("click", "#submit", function (event) {
+          let name = $("#name").val();
+          let email = $("#email").val();
+          let errMsg = false;
+
+          if (name === "") {
+            errMsg = true;
+            $("#name").css("border", "1px solid red");
+          }
+          if (email === "") {
+            errMsg = true;
+            $("#email").css("border", "1px solid red");
+          }
+          if (errMsg) {
+            window.alert("Both fields are required!");
+          } else {
+            $("#name").css("border", "1px solid green");
+            $("#email").css("border", "1px solid green");
+          }
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Practice with jQuery Events</h1>
+    <button id="btn1">Item 16</button><br />
+    <button id="btn2">Item 17</button><br />
+    <button id="btn3">Item 18</button><br />
+    <button class="btnMultiple">Item 19 Button 1</button>
+    <button class="btnMultiple">Item 19 Button 2</button><br />
+    <div><span></span></div>
+    <br />
+    <a href="modulemedia.com">Module Media</a>
+    <div id="size"></div>
+    <br />
+    <input type="text" />
+    <form action="javascript:void(0);">
+      <label for="name">Name:</label>
+      <input type="text" id="name" name="name" />
+      <label for="email">Email:</label>
+      <input type="text" id="email" name="email" />
+      <button id="submit">Submit</button>
+    </form>
+  </body>
+</html>
